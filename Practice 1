@@ -1,0 +1,102 @@
+Problem 1:
+Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
+
+Input Format
+
+The STATION table is described as follows:
+
+Station.jpg
+
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+Solution:
+*/
+select distinct city from station 
+where city Not like 'A%' and city Not like 'E%' and city Not like 'I%' and
+      city Not like 'O%' and city not like 'U%';
+      
+Problem 2:
+Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+
+Input Format
+
+The STATION table is described as follows:
+
+Station.jpg
+
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+Solution:
+select distinct city from station 
+where city Not like '%a' and city Not like '%e' and city Not like '%i' and
+      city Not like '%o' and city not like '%u';
+      
+  Problem 3:
+  
+  Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
+
+Input Format
+
+The STATION table is described as follows:
+
+Station.jpg
+
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+Solution:
+SELECT DISTINCT city
+FROM   station
+WHERE  city REGEXP '^[^aeiouAEIOU]|[^aeiouAEIOU]$'
+  
+ Explanation:
+ 
+^ only means "not the following" when inside and at the start of [], so [^...].
+
+When it's inside [] but not at the start, it means the actual ^ character.
+When it's escaped (\^), it also means the actual ^ character.
+
+In all other cases it means start of the string / line (which one is language / setting dependent).
+
+So in short:
+
+[^abc] -> not a, b or c
+[ab^cd] -> a, b, ^ (character), c or d
+\^ -> a ^ character
+Anywhere else -> start of string / line.
+So ^[b-d]t$ means:
+
+Start of line
+b/c/d character
+t character
+End of line
+
+Problem 4:
+Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
+
+Solution
+SELECT DISTINCT city
+FROM   station
+WHERE SUBSTR(CITY,1,1) not in
+('A','e','i','O','U','a','E','I','o','u')   
+AND
+SUBSTR(CITY,-1,1) not in
+('A','e','i','O','U','a','E','I','o','u') 
+
+Problem 5:
+Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. If two or more students
+both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+
+Solution:
+select Name
+from students
+where
+marks>75
+order by substr(Name,-3,3),ID 
+
+
+
+
+
+
+
+
