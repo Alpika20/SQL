@@ -15,3 +15,19 @@ Solution:
     
 select if( grade >= 8,Name,Null),grade,marks from students as s join grades as g
 where s.marks between g.min_mark and g.max_mark order by grade desc,name,marks;
+
+
+Problem 2
+lia just finished conducting a coding contest, and she needs your help assembling the leaderboard! Write a query to print the respective hacker_id and name of
+hackers who achieved full scores for more than one challenge. Order your output in descending order by the total number of challenges in which the hacker 
+earned a full score. If more than one hacker received full scores in same number of challenges, then sort them by ascending hacker_id.
+
+Solution
+select s.hacker_id,h.name from hackers as h 
+join submissions as s on s.hacker_id = h.hacker_id
+join challenges as c on c.challenge_id = s.challenge_id
+join difficulty as d on d.difficulty_level = c.difficulty_level
+where s.score = d.score
+group by s.hacker_id,h.name
+having count(*) > 1
+order by count(*) desc,hacker_id asc;
